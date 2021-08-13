@@ -1,4 +1,8 @@
 require "mundler/dsl"
+require "mundler/clean_environment"
+require_relative "sdl/path"
+require_relative "sdl/build"
+require_relative "sdl/git"
 
 module Mundler
   module SDL

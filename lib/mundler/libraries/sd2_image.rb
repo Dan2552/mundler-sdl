@@ -1,14 +1,14 @@
 module Mundler
   module SDL
-    class SDL2Library
+    class SDL2ImageLibrary
       def build(platform, options)
         ::Mundler::SDL::Git.clone(
-          "https://github.com/libsdl-org/SDL",
-          ::Mundler::SDL::Path.clone_dir(platform)
+          "https://github.com/libsdl-org/SDL_image",
+          ::Mundler::SDL::Path.clone_dir(platform, "image")
         )
 
         ::Mundler::SDL::Build.compile(
-          ::Mundler::SDL::Path.clone_dir(platform),
+          ::Mundler::SDL::Path.clone_dir(platform, "image"),
           ::Mundler::SDL::Path.build_dir(platform)
         )
       end
@@ -20,14 +20,14 @@ module Mundler
         when "host"
           {
             cc: { flags: "-I#{path}/include/SDL2" },
-            linker: { flags: "-L#{path}/lib -lSDL2" } # TODO: -lSDL2_image -lSDL2_ttf
+            linker: { flags: "-L#{path}/lib -lSDL2_image" }
           }
         else
-          raise "SDL2 support for #{platform} is unsupported"
+          raise "SDL2 image support for #{platform} is unsupported"
         end
       end
     end
   end
 end
 
-define_library "sdl2", Mundler::SDL::SDL2Library
+define_library "sdl2_image", Mundler::SDL::SDL2ImageLibrary
