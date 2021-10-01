@@ -29,8 +29,5 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "rake"
-
-  spec.add_dependency "thor"
-  spec.add_dependency "rake"
+  spec.add_dependency "mundler", ">= 0.8.0"
 end

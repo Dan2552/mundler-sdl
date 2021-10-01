@@ -1,8 +1,15 @@
 require "mundler/dsl"
 require "mundler/clean_environment"
 require_relative "sdl/path"
-require_relative "sdl/build"
+require_relative "sdl/host/all"
+require_relative "sdl/ios/freetype"
+require_relative "sdl/ios/libpng"
+require_relative "sdl/ios/sdl2"
+require_relative "sdl/ios/sdl2_image"
+require_relative "sdl/ios/sdl2_ttf"
 require_relative "sdl/git"
+require_relative "sdl/platform"
+require_relative "sdl/log_wrap"
 
 module Mundler
   module SDL

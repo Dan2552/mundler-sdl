@@ -1,0 +1,28 @@
+PATH
+  remote: .
+  specs:
+    mundler-sdl (0.1.0)
+      mundler (>= 0.8.0)
+
+PATH
+  remote: /Users/dan2552/Dropbox/experiments/mundler
+  specs:
+    mundler (0.8.0)
+      rake
+      thor
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rake (13.0.6)
+    thor (1.1.0)
+
+PLATFORMS
+  -darwin-20
+
+DEPENDENCIES
+  mundler!
+  mundler-sdl!
+
+BUNDLED WITH
+   2.2.24

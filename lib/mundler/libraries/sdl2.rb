@@ -2,14 +2,19 @@ module Mundler
   module SDL
     class SDL2Library
       def build(platform, options)
+        Platform.validate!(platform)
+
         ::Mundler::SDL::Git.clone(
           "https://github.com/libsdl-org/SDL",
           ::Mundler::SDL::Path.clone_dir(platform)
         )
 
-        ::Mundler::SDL::Build.compile(
+        simulator = platform == "ios_simulator"
+
+        builder(platform).compile(
           ::Mundler::SDL::Path.clone_dir(platform),
-          ::Mundler::SDL::Path.build_dir(platform)
+          ::Mundler::SDL::Path.build_dir(platform),
+          simulator: simulator
         )
       end
 
@@ -20,10 +25,26 @@ module Mundler
         when "host"
           {
             cc: { flags: "-I#{path}/include/SDL2" },
-            linker: { flags: "-L#{path}/lib -lSDL2" } # TODO: -lSDL2_image -lSDL2_ttf
+            linker: { flags: "-L#{path}/lib -lSDL2" }
           }
-        else
-          raise "SDL2 support for #{platform} is unsupported"
+        when "ios", "ios_simulator"
+          {
+            cc: { flags: "-I#{path}/sdl/include" },
+            linker: { flags: "-L#{path}/sdl/lib -lSDL2 -framework AudioToolbox -framework AVFoundation -framework CoreBluetooth -framework CoreGraphics -framework CoreMotion -framework CoreServices -framework Foundation -framework GameController -framework ImageIO -framework Metal -framework OpenGLES -framework QuartzCore -framework UIKit -framework CoreHaptics -lc++ -lz -lbz2" }
+          }
+        end
+      end
+
+      private
+
+      def builder(platform)
+        case platform
+        when "host"
+          Host::All
+        when "ios"
+          IOS::SDL2
+        when "ios_simulator"
+          IOS::SDL2
         end
       end
     end

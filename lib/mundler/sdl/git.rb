@@ -19,7 +19,7 @@ module Mundler
               "PATH" => ([cached_git_dir] + ENV["PATH"].split(":")).join(":")
             },
             "git clone #{repo} #{File.basename(directory)} >/dev/null 2>&1"
-          ) || raise("Failed to clone SDL2")
+          ) || raise("Failed to clone #{repo}")
         end
 
         FileUtils.touch(success_indicator)
